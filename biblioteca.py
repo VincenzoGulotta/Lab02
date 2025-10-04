@@ -1,20 +1,52 @@
+from csv import reader
+
 def carica_da_file(file_path):
     """Carica i libri dal file"""
+    file = open(f"{file_path}","r")
+    riga = reader(file)
+    sezioni = next(riga)
+    lista = []
+    for line in riga:
+        lista.append(line)
+    file.close()
+    return lista
+
     # TODO
 
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
+    lista = [titolo, autore, anno, pagine, sezione]
+    biblioteca.append(lista)
+    file = open(f"{file_path}","w")
+    file.write("5\n")
+    for item in biblioteca:
+        libro = f"{item[0]}, {item[1]}, {item[2]}, {item[3]}, {item[4]}"
+        file.write(libro)
+        file.write("\n")
+    file.close()
+    return True
     # TODO
-#ciao
 
 def cerca_libro(biblioteca, titolo):
     """Cerca un libro nella biblioteca dato il titolo"""
+    for item in biblioteca:
+        if item[0] == titolo:
+            libro = (f"{item[0]}, {item[1]}, {item[2]}, {item[3]}, {item[4]}")
+            return libro
     # TODO
 
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
+    lista_titoli = []
+    for item in biblioteca:
+        if int(item[4].strip()) == int(sezione):
+            titolo = item[0]
+            lista_titoli.append(titolo)
+    lista_titoli.sort()
+    return lista_titoli
+
     # TODO
 
 
